@@ -14,7 +14,7 @@ export default function Router() {
           
           <Stack.Screen   name='LandingPage' component={LandingPage} />
           
-          <Stack.Screen options={{animation:"fade_from_bottom"}} name='SignUpGuide' component={SignUpGuide} />
+          <Stack.Screen options={{animation:"fade_from_bottom",animationDuration:100}} name='SignUpGuide' component={SignUpGuide} />
 
           <Stack.Screen  name='SignUp' component={SignUpPage} />
 
