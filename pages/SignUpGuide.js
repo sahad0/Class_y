@@ -1,7 +1,9 @@
 import { View, Text, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextComp from '../Components/SignUpGuide/TextComp';
 import SelectionView from '../Components/SignUpGuide/SelectionView';
+import { useIsFocused } from '@react-navigation/native';
+
 
 export default function SignUpGuide({navigation}) {
 
@@ -9,6 +11,13 @@ export default function SignUpGuide({navigation}) {
     
     const [type,setType] = useState('');
 
+    // const focused = useIsFocused();
+
+    // useEffect(()=>{
+    //   if(!focused){
+    //     setType('');
+    //   }
+    // },[focused])
 
   return (
     <View style={{flex:1,backgroundColor:"white"}}>
