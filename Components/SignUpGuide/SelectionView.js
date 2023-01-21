@@ -1,21 +1,26 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Fontisto'
 import Icons from 'react-native-vector-icons/FontAwesome5'
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import Loader from '../Loader/Loader'
 
 
 
 
 export default function SelectionView({height,width,type,setType,navigation}) {
 
+    const [loading,setLoading] = useState(false);
 
     const forwardSelection = ()=>{
         if(type===''){
             return
         }
+        setLoading(true);
+        setTimeout(()=>{
+            navigation.navigate('SignUp',{mode:type});
 
-        navigation.navigate('SignUp',{mode:type});
+        },200);
     }
 
 
@@ -33,13 +38,23 @@ export default function SelectionView({height,width,type,setType,navigation}) {
             <Text style={{color:"black",alignSelf:'center',margin:10,fontFamily:'Lato'}}>Instructor</Text>
 
         </TouchableOpacity>
+
+
+        <TouchableOpacity disabled={type===''?true:false}  onPress={forwardSelection}>
+            {!loading &&
+           
+            ( <>
+                <IonIcons name='arrow-forward' size={40} color={type!=='' ? 'black' :'lightgray'} style={{alignSelf:'flex-end',margin:height*0.1,marginRight:height*0.05}} />
+             </>)}
+            
+
+        </TouchableOpacity>
     </View>
+    {loading &&(
+    <Loader />)}
 
-    <TouchableOpacity disabled={type===''?true:false}  onPress={forwardSelection}>
-    
-    <IonIcons name='arrow-forward' size={40} color={type!=='' ? 'black' :'lightgray'} style={{alignSelf:'flex-end',margin:height*0.1,marginRight:height*0.05}} />
 
-    </TouchableOpacity>
+  
     </>
   )
 }
