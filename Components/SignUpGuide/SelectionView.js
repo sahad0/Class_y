@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'rea
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Fontisto'
 import Icons from 'react-native-vector-icons/FontAwesome5'
-import IonIcons from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import Loader from '../Loader/Loader'
 
 
@@ -41,11 +41,11 @@ export default function SelectionView({height,width,type,setType,navigation}) {
 
 
         <TouchableOpacity disabled={type===''?true:false}  onPress={forwardSelection}>
-            {!loading &&
+            {/* {!loading && */}
            
-            ( <>
-                <IonIcons name='arrow-forward' size={40} color={type!=='' ? 'black' :'lightgray'} style={{alignSelf:'flex-end',margin:height*0.1,marginRight:height*0.05}} />
-             </>)}
+            {/* ( <> */}
+                <Entypo name='chevron-with-circle-right' size={40} color={type!=='' ? 'black' :'lightgray'} style={{alignSelf:'flex-end',margin:height*0.1,marginRight:height*0.05,marginTop:height*0.06}} />
+             {/* </>)} */}
             
 
         </TouchableOpacity>
