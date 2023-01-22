@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, TouchableOpacity, Keyboard } from 'react-native'
+import { View, Text, Dimensions, TouchableOpacity, Keyboard, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect } from 'react'
 import Heading from '../Components/SignUp/Heading'
 import InputComp from '../Components/SignUp/InputComp';
@@ -25,7 +25,7 @@ export default function SignUpPage({navigation,route}) {
   return (
     <TouchableOpacity activeOpacity={1} onPress={()=> Keyboard.dismiss()} style={{flex:1,backgroundColor:"white"}}>
 
-        <Heading height={height} />
+        <Heading height={height} mode={mode} />
         <InputComp height={height} width={width} mode={mode}  />
 
     </TouchableOpacity>
