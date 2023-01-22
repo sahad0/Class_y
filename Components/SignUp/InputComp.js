@@ -1,7 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Button, ActivityIndicator, StyleSheet, Image } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import Icon from 'react-native-vector-icons/Fontisto'
-import Icons from 'react-native-vector-icons/FontAwesome5'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginController } from '../../Store/store';
@@ -26,12 +24,9 @@ export default function InputComp({height,width,mode}) {
 
 
   const signUpFunc = async(value)=>{
-    const {username,email,password} = value;
-    if(username===""||email==="",password==="") return;
-    const details = {...value,user_type:mode.toUpperCase()}
-
-
     try {
+      const details = {...value,user_type:mode.toUpperCase()}
+
       setLoading(true);
 
       const {data} = await axios.post('http://192.168.1.73:4000/api/register',details);
@@ -58,34 +53,7 @@ export default function InputComp({height,width,mode}) {
   }
 
 
-  const changeUserBorder = (error)=> {
-    refUsername.current.setNativeProps({style:{  borderColor:'#EE9B9B'}})
-    return(
-      <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{error}</Text>
-    )
-  };
 
-  const changeBackUser = ()=>{
-    refUsername.current.setNativeProps({style:{borderColor:'lightgray'}});
-  }
-  const changeEmailBorder = (error)=> {
-    refEmail.current.setNativeProps({style:{  borderColor:'#EE9B9B'}})
-    return(
-      <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{error}</Text>
-    )
-  };
-  const changeBackEmail = ()=>{
-    refEmail.current.setNativeProps({style:{borderColor:'lightgray'}});
-  }
-  const changePasswordBorder = (error)=> {
-    refPassword.current.setNativeProps({style:{  borderColor:'#EE9B9B'}})
-    return(
-      <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{error}</Text>
-    )
-  };
-  const changeBackPassword = ()=>{
-    refPassword.current.setNativeProps({style:{borderColor:'lightgray'}});
-  }
 
 
   const styles = StyleSheet.create({
@@ -132,20 +100,20 @@ export default function InputComp({height,width,mode}) {
       >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
         <>
-          <TextInput name="username" ref={refUsername} onChangeText={handleChange('username')} onBlur={handleBlur('username')} value={values.username} style={{backgroundColor:"white",borderColor:"lightgray",borderWidth:1,width:width*0.8,alignSelf:'center',borderRadius:10,paddingLeft:20,color:"black"}} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'name'} placeholder={"Username"} />
+          <TextInput name="username" ref={refUsername} onChangeText={handleChange('username')} onBlur={handleBlur('username')} value={values.username} style={{backgroundColor:"white",borderColor:errors.username?'#EE9B9B':'lightgray',borderWidth:1,width:width*0.8,alignSelf:'center',borderRadius:10,paddingLeft:20,color:"black"}} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'name'} placeholder={"Username"} />
           {
-            errors.username ? changeUserBorder(errors.username) : changeBackUser()
+            errors.username && <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{errors.username}</Text>
           }
-          <TextInput name="email" ref={refEmail}  onChangeText={handleChange('email')} onBlur={handleBlur('email')} value={values.email}style={styles.inputStyle} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'emailAddress'}  placeholder={"Email"} />
+          <TextInput name="email" ref={refEmail}  onChangeText={handleChange('email')} onBlur={handleBlur('email')} value={values.email}style={[styles.inputStyle,{borderColor:errors.email?'#EE9B9B':'lightgray'}]} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'emailAddress'}  placeholder={"Email"} />
           {
-            errors.email ? changeEmailBorder(errors.email) : changeBackEmail()
+            errors.email && <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{errors.email}</Text>
           }
           {
             error &&(<Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>Email aldready exist,please login!</Text>)
           }
-          <TextInput  name="password" ref={refPassword} onChangeText={handleChange('password')} onBlur={handleBlur('password')} value={values.password}style={styles.inputStyle} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'password'} secureTextEntry={true} placeholder={"Password"} />
+          <TextInput  name="password" ref={refPassword} onChangeText={handleChange('password')} onBlur={handleBlur('password')} value={values.password}style={[styles.inputStyle,{borderColor:errors.password?'#EE9B9B':'lightgray'}]} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'password'} secureTextEntry={true} placeholder={"Password"} />
           {
-            errors.password ? changePasswordBorder(errors.password) : changeBackPassword()
+            errors.password && <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{errors.password}</Text>
 
           }
         
