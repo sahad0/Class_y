@@ -3,21 +3,23 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 import axios from 'axios';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { loginController } from '../../Store/store';
 
 
-export default function LoginInput({height,width}) {
+export default function LoginInput({height,width,navigation}) {
 
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState({email:false,password:false});
-
+  const dispatch = useDispatch();
 
   const loginFunc = async(values)=>{
     try {
-      const {data} = await axios.post('http://192.168.1.73:4000/api/login',values);
-      console.log(data);
+      setLoading(true);
+      const {data} = await axios.post('http://194.195.114.166/api/login',values);
       if(data){
-        const {success,message} = data;
-        if(!success){
+        const {status,message} = data;
+        if(!status){
           if(message==='Email is not found.'){
             setError({...error,email:true,password:false})
           }
@@ -27,7 +29,11 @@ export default function LoginInput({height,width}) {
             
         }
         else{
-          console.log(data);
+          
+          const {token,user} = data;
+          setLoading(false);
+          dispatch(loginController({token:token,user:user}));
+
         }
 
       }
@@ -84,9 +90,9 @@ export default function LoginInput({height,width}) {
             <TextInput name="password"  onChangeText={handleChange('password')} onBlur={handleBlur('password')} value={values.password}style={[styles.inputStyle,{borderColor:error.password||errors.password?'#EE9B9B':'lightgray'}]} cursorColor={'#6e7d98'} placeholderTextColor={"gray"} textContentType={'password'} secureTextEntry={true} placeholder={"Password"} />
             {errors.password && (<Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{errors.password}</Text>)}
             {error.password && (<Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{"Incorrect Password! please try again"}</Text>)}
-            
-            <Text style={{color:'black',textDecorationLine:'underline',alignSelf:'flex-end',margin:height*0.05,marginTop:height*0.02}}>Forgot Password?</Text>
-
+            <TouchableOpacity onPress={()=>navigation.navigate('Otp')}> 
+              <Text style={{color:'black',textDecorationLine:'underline',alignSelf:'flex-end',margin:height*0.05,marginTop:height*0.02}}>Forgot Password?</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={handleSubmit} style={{height:height*0.06,justifyContent:'center',backgroundColor:'#f4f7ff',borderColor:"#6e7d98",borderWidth:1,width:width*0.8,alignSelf:'center',borderRadius:10,paddingLeft:20,color:"#6e7d98"}}>
             {
               loading ?

@@ -7,6 +7,7 @@ import SignUpPage from '../pages/SignUpPage';
 import DashboardT from '../pages/DashboardT';
 import DashboardS from '../pages/DashboardS';
 import LoginPage from '../pages/LoginPage';
+import OtpPage from '../pages/OtpPage';
 
 const Stack = createNativeStackNavigator(); 
 
@@ -31,6 +32,8 @@ export default function Router() {
              <Stack.Screen options={{animation:"fade_from_bottom",animationTypeForReplace:'push'}} name='SignUpGuide' component={SignUpGuide} />
              <Stack.Screen  name='SignUp' component={SignUpPage} />
              <Stack.Screen options={{animation:"slide_from_right",animationTypeForReplace:'push'}} name='Login' component={LoginPage} />
+             <Stack.Screen options={{animation:"slide_from_right",animationTypeForReplace:'push'}} name='Otp' component={OtpPage} />
+
 
            </>
           )}

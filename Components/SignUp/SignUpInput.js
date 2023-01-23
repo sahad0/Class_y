@@ -9,7 +9,7 @@ const backgroundImg1 = require('../../assets/images/LandingPage/img3.png');
 
 
 
-export default function SignUpInput({height,width,mode}) {
+export default function SignUpInput({height,width,mode,navigation}) {
 
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState(false);
@@ -30,7 +30,7 @@ export default function SignUpInput({height,width,mode}) {
 
       setLoading(true);
 
-      const {data} = await axios.post('http://192.168.1.73:4000/api/register',details);
+      const {data} = await axios.post('http://194.195.114.166/api/register',details);
       if(data){
         const {status} = data;
 
@@ -120,9 +120,7 @@ export default function SignUpInput({height,width,mode}) {
             errors.password && <Text style={{color:'black',margin:height*0.05,marginTop:0,marginBottom:0,fontSize:height*0.013,color:'#EE9B9B'}}>{errors.password}</Text>
 
           }
-        
-          <Text style={{color:'black',textDecorationLine:'underline',alignSelf:'flex-end',margin:height*0.05,marginTop:height*0.02}}>Issues with Sign In?</Text>
-    
+            <Text style={{color:'black',textDecorationLine:'underline',alignSelf:'flex-end',margin:height*0.05,marginTop:height*0.02}}>Issues with Sign In?</Text>
           <TouchableOpacity  onPress={handleSubmit} style={{height:height*0.06,justifyContent:'center',backgroundColor:'#f4f7ff',borderColor:"#6e7d98",borderWidth:1,width:width*0.8,alignSelf:'center',borderRadius:10,paddingLeft:20,color:"#6e7d98"}}>
             {
               loading ?
