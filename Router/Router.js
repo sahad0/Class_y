@@ -28,7 +28,7 @@ export default function Router() {
           {authKey===""&&(
              <>
              <Stack.Screen   name='LandingPage' component={LandingPage} />
-             <Stack.Screen options={{animation:"fade",animationTypeForReplace:'push'}} name='SignUpGuide' component={SignUpGuide} />
+             <Stack.Screen options={{animation:"fade_from_bottom",animationTypeForReplace:'push'}} name='SignUpGuide' component={SignUpGuide} />
              <Stack.Screen  name='SignUp' component={SignUpPage} />
              <Stack.Screen options={{animation:"slide_from_right",animationTypeForReplace:'push'}} name='Login' component={LoginPage} />
 

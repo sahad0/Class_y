@@ -9,7 +9,7 @@ const backgroundImg1 = require('../../assets/images/LandingPage/img3.png');
 
 
 
-export default function InputComp({height,width,mode}) {
+export default function SignUpInput({height,width,mode}) {
 
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState(false);
@@ -24,6 +24,7 @@ export default function InputComp({height,width,mode}) {
 
 
   const signUpFunc = async(value)=>{
+
     try {
       const details = {...value,user_type:mode.toUpperCase()}
 
@@ -33,22 +34,25 @@ export default function InputComp({height,width,mode}) {
       if(data){
         const {status} = data;
 
-        if(status==='success'){
+        if(status){
             const {token,user} = data.response;
             dispatch(loginController({token:token,user:user}));
 
             
         }
         else{
-          refEmail.current.style.borderColor = '#EE9B9B';
+          refEmail.current.setNativeProps({
+            style:{borderColor: '#EE9B9B',}
+          })
           setError(true);
           setLoading(false);
         }
 
       }
      
+     
     } catch (error) {
-      
+      setLoading(false);
     }
   }
 

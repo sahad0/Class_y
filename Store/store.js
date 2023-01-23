@@ -16,16 +16,19 @@ const storeSlice = createSlice({
              
             const {token,user} = action.payload;
             state.value = {...state.value,token,user};
-            console.log(state.value);
 
           
 
-            // console.log(JSON.stringify(action.payload)+"-----------> from store");
+
+        },
+        logoutController : (state,action) => {
+            const temp = {token:"",user:{}};
+            state.value = temp;
 
         }
     }
 })
 
-export const { loginController } = storeSlice.actions;
+export const { loginController ,logoutController} = storeSlice.actions;
 
 export default storeSlice.reducer;
